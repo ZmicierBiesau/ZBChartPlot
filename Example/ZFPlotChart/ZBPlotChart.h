@@ -1,8 +1,8 @@
 //
-//  ZFPlotChart.h
+//  ZBPlotChart.m
 //
-//  Created by Zerbinati Francesco
-//  Copyright (c) 2014-2015
+//  Created by Źmicier Biesau, based on Zerbinati Francesco project
+//  Copyright (c) 2016
 //
 
 #import <UIKit/UIKit.h>
