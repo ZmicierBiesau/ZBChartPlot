@@ -301,7 +301,7 @@
                     
                     // draw the dynamic value
                     
-                    float value = [[dict objectForKey:self.yParamterName] floatValue]/100;
+                    float value = [[dict objectForKey:self.yParamterName] floatValue];
                     NSString *yString = [@(value) stringValue];
                     
                     CGSize yStringSize = [self sizeOfString:yString withFont:self.horizontalLabelFont];
