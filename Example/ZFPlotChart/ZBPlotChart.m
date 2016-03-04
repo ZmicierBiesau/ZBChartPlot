@@ -95,7 +95,7 @@
     float range = self.max-self.min;
     
     // Calculate deploying points for chart according to values
-    float xGapBetweenTwoPoints = self.chartWidth/[orderSet count];
+    float xGapBetweenTwoPoints = self.chartWidth / ([orderSet count] - 1);
     float x , y;
     
 
@@ -242,7 +242,7 @@
             CGPathAddLineToPoint(path, nil, self.curPoint.x, kTopMargin+self.chartHeight);
             CGPathAddLineToPoint(path, nil, origin.x,origin.y);
             
-            // gradient
+            // fill
             [self fillUnderGraphForPath:path];
             
             CGPathRelease(path);
@@ -321,9 +321,9 @@
                     [self drawString:yString at:CGPointMake(yStringRect.origin.x + (yStringRect.size.width - yStringSize.width)/2, yStringRect.origin.y + 1.0f) withFont:self.horizontalLabelFont andColor:self.backgroundColor];
                 }
             }
-            if (self.max <= 0) {
+            //if (self.max <= 0) {
                 [self drawMessage:self.emptyGraphText];
-            }
+            //}
         }
         else
         {
@@ -375,14 +375,14 @@
     /// Make a copy of the default paragraph style
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     /// Set line break mode
-    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
     /// Set text alignment
     paragraphStyle.alignment = NSTextAlignmentCenter;
     //[self drawString:string at:CGPointMake(100, 200) withFont:self.horizontalLabelFont andColor:[UIColor blackColor]];
      NSDictionary *attributes = @{NSFontAttributeName: self.horizontalLabelFont,
                                   NSForegroundColorAttributeName: [UIColor blackColor],
                                   NSParagraphStyleAttributeName: paragraphStyle};
-    [string drawInRect:CGRectMake(0.f, self.bounds.size.height / 2 - textSize.height / 2, self.bounds.size.width, textSize.height) withAttributes:attributes];
+    [string drawInRect:CGRectMake(self.leftMargin, self.bounds.size.height / 2 - textSize.height / 2, self.chartWidth, 4 * textSize.height) withAttributes:attributes];
     
     [self endContext];
 }

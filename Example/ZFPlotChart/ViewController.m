@@ -1,9 +1,9 @@
 //
 //  ViewController.m
-//  ZFPlotChart
+//  ZBPlotChart
 //
-//  Created by Francesco Zerbinati on 21/06/15.
-//  Copyright (c) 2015 Francesco Zerbinati. All rights reserved.
+//  Created by Źmicier Biesau, based on Zerbinati Francesco project
+//  Copyright (c) 2016
 //
 
 #import "ViewController.h"
@@ -65,7 +65,7 @@
     self.plotChart.verticalAxisColor = [UIColor greenColor];
     self.plotChart.graphColor = COLOR_WITH_RGB(255, 150, 10);
     self.plotChart.backgroundColor = [UIColor whiteColor];
-    self.plotChart.emptyGraphText = @"This graph has nothing to show";
+    self.plotChart.emptyGraphText = @"This graph has nothing to show This graph has nothing to show This graph has nothing to show";
     self.plotChart.enablePopUpLabel = YES;
     
     

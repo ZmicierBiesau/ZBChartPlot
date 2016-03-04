@@ -1,5 +1,5 @@
 //
-//  ZBPlotChart.m
+//  ZBPlotChart.h
 //
 //  Created by Źmicier Biesau, based on Zerbinati Francesco project
 //  Copyright (c) 2016
@@ -57,7 +57,6 @@ static NSString *kPointName = @"Point";
 @property (nonatomic, strong) UIColor *verticalAxisColor;
 @property (nonatomic, strong) UIColor *horizontalAxisColor;
 @property (nonatomic, strong) UIColor *graphColor;
-//@property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, strong) NSString *emptyGraphText;
 @property (nonatomic, assign) BOOL enablePopUpLabel;
 
