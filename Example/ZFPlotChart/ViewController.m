@@ -39,13 +39,14 @@
     if (!json) {
         NSLog(@"Error parsing JSON");
     } else {
-        NSLog(@"%@",json);
+        //NSLog(@"%@",json);
     }
     
     // values are contained inside "values" in the JSON file
     NSArray *values = [json valueForKeyPath:@"values"];
     // create the nsorderedset from the array
     NSOrderedSet *result = [NSOrderedSet orderedSetWithArray:values];
+    NSLog(@"%@", result);
     
     self.plotChart.alpha = 0;
     

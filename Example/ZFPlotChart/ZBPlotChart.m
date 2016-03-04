@@ -321,9 +321,9 @@
                     [self drawString:yString at:CGPointMake(yStringRect.origin.x + (yStringRect.size.width - yStringSize.width)/2, yStringRect.origin.y + 1.0f) withFont:self.horizontalLabelFont andColor:self.backgroundColor];
                 }
             }
-            //if (self.max <= 0) {
+            if (self.max <= 0) {
                 [self drawMessage:self.emptyGraphText];
-            //}
+            }
         }
         else
         {
