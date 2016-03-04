@@ -85,8 +85,8 @@
     
     
     // Enhance Upper & Lower Limit for Flexible Display, based on average of min and max
-    self.max = ceilf((self.max+10 )/ 1000)*1000;
-    self.min = floor((self.min-10)/1000)*1000;
+    self.max = ceilf(self.max+10 );
+    self.min = floor(self.min-10);
     
     // Calculate left space given by the lenght of the string on the axis
     self.leftMargin = [self sizeOfString:[@(self.max) stringValue] withFont:self.verticalLabelFont].width + kLeftSpace;
@@ -193,9 +193,11 @@
                 
                 long linesRatio;
                 
-                if([self.dictDispPoint count] < 4)
-                    linesRatio = [self.dictDispPoint count]/([self.dictDispPoint count]-1);
-                else    linesRatio  = [self.dictDispPoint count]/4 ;
+                if([self.dictDispPoint count] < 6)
+                    linesRatio = [self.dictDispPoint count] / [self.dictDispPoint count];
+                else if([self.dictDispPoint count] < 12)
+                    linesRatio = [self.dictDispPoint count] / 2;
+                else linesRatio  = [self.dictDispPoint count]/4 ;
                 
                 
                 if(ind%linesRatio == 0) {
