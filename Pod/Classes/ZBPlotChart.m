@@ -17,6 +17,11 @@
 
 
 #pragma mark - Initialization/LifeCycle Method
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self setup];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     
@@ -25,34 +30,7 @@
         // Initialization code
         @try {
             
-            [self setAutoresizingMask: UIViewAutoresizingFlexibleWidth];
-            [self setAutoresizesSubviews:YES];
-            
-            _yParamterName = @"value";
-            _xParamterName = @"time";
-            _xDateFormat = @"yyyyMMdd";
-            
-            _enableVerticalAxis = YES;
-            _enableHorizontalAxis = YES;
-            _enableShowXLabels = YES;
-            _enableShowYLabels = YES;
-            _verticalLabelColor = [UIColor blackColor];
-            _horizontalLabelColor = [UIColor blackColor];
-            _verticalLabelFont = [UIFont systemFontOfSize:10.f];
-            _horizontalLabelFont = [UIFont systemFontOfSize:10.f];
-            _horizontalAxisColor = [UIColor lightGrayColor];
-            _verticalAxisColor = [UIColor lightGrayColor];
-            _graphColor = COLOR_WITH_RGB(0, 150, 10);
-            self.backgroundColor = [UIColor whiteColor];
-            _emptyGraphText = @"This graph has nothing";
-            _enablePopUpLabel = YES;
-            
-            self.chartHeight = frame.size.height - kVMargin;
-            self.chartWidth = frame.size.width - kHMargin;
-   
-            isMovement = NO;
-            
-            self.dictDispPoint = [[NSMutableOrderedSet alloc] initWithCapacity:0];
+            [self setup];
             
         }
         @catch (NSException *exception) {
@@ -63,6 +41,46 @@
         }
     }
     return self;
+}
+
+- (void) setup
+{
+    [self setAutoresizingMask: UIViewAutoresizingFlexibleWidth];
+    [self setAutoresizesSubviews:YES];
+    
+    _yParamterName = @"value";
+    _xParamterName = @"time";
+    _xDateFormat = @"yyyyMMdd";
+    
+    _enableVerticalAxis = YES;
+    _enableHorizontalAxis = YES;
+    _enableShowXLabels = YES;
+    _enableShowYLabels = YES;
+    _verticalLabelColor = [UIColor blackColor];
+    _horizontalLabelColor = [UIColor blackColor];
+    _verticalLabelFont = [UIFont systemFontOfSize:10.f];
+    _horizontalLabelFont = [UIFont systemFontOfSize:10.f];
+    _horizontalAxisColor = [UIColor lightGrayColor];
+    _verticalAxisColor = [UIColor lightGrayColor];
+    _graphColor = COLOR_WITH_RGB(0, 150, 10);
+    self.backgroundColor = [UIColor whiteColor];
+    _emptyGraphText = @"This graph has nothing";
+    _enablePopUpLabel = YES;
+    
+    self.chartHeight = self.bounds.size.height - kVMargin;
+    self.chartWidth = self.bounds.size.width - kHMargin;
+    
+    isMovement = NO;
+    
+    self.dictDispPoint = [[NSMutableOrderedSet alloc] initWithCapacity:0];
+}
+
+- (void) layoutSubviews
+{
+    [super layoutSubviews];
+    self.chartHeight = self.bounds.size.height - kVMargin;
+    self.chartWidth = self.bounds.size.width - kHMargin;
+    [self createChartWith:[dictDispPoint copy]];
 }
 
 #pragma mark - Chart Creation Method

@@ -16,11 +16,27 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yI6-TE-wZy" customClass="ZBPlotChart">
+                                <rect key="frame" x="20" y="427" width="560" height="153"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yI6-TE-wZy" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="407" id="1Jv-tD-oAh"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yI6-TE-wZy" secondAttribute="bottom" constant="20" id="PL8-Th-EI5"/>
+                            <constraint firstAttribute="trailing" secondItem="yI6-TE-wZy" secondAttribute="trailing" constant="20" id="e0l-4F-FBu"/>
+                            <constraint firstItem="yI6-TE-wZy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="lzR-bF-8hr"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="secondChart" destination="yI6-TE-wZy" id="oSw-6x-Jnm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="367" y="236"/>
         </scene>
     </scenes>
 </document>
