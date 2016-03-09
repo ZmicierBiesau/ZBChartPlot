@@ -506,7 +506,7 @@
     NSDate *dateFromString = [dateFormatter dateFromString:string];
     
     [dateFormatter setDateFormat:@"MMM"];
-    NSString *printDate = [dateFormatter stringFromDate:dateFromString];
+    NSString *printDate = [[dateFormatter stringFromDate:dateFromString] uppercaseString];
     return printDate;
 }
 
