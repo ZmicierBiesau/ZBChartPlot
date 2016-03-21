@@ -16,7 +16,7 @@
 		13899B4D1B36CF4B0060AD92 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13899B4C1B36CF4B0060AD92 /* Images.xcassets */; };
 		13899B501B36CF4B0060AD92 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13899B4E1B36CF4B0060AD92 /* LaunchScreen.xib */; };
 		13899B5C1B36CF4C0060AD92 /* ZFPlotChartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 13899B5B1B36CF4C0060AD92 /* ZFPlotChartTests.m */; };
-		13899B6A1B36CF820060AD92 /* ZBPlotChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 13899B691B36CF820060AD92 /* ZBPlotChart.m */; };
+		FB3B24B01C9FEF8E0045859D /* ZBPlotChart.m in Sources */ = {isa = PBXBuildFile; fileRef = FB3B24AF1C9FEF8E0045859D /* ZBPlotChart.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,8 +45,8 @@
 		13899B551B36CF4B0060AD92 /* ZFPlotChartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZFPlotChartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13899B5A1B36CF4C0060AD92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13899B5B1B36CF4C0060AD92 /* ZFPlotChartTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZFPlotChartTests.m; sourceTree = "<group>"; };
-		13899B681B36CF820060AD92 /* ZBPlotChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBPlotChart.h; sourceTree = "<group>"; };
-		13899B691B36CF820060AD92 /* ZBPlotChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBPlotChart.m; sourceTree = "<group>"; };
+		FB3B24AE1C9FEF8E0045859D /* ZBPlotChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBPlotChart.h; sourceTree = "<group>"; };
+		FB3B24AF1C9FEF8E0045859D /* ZBPlotChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBPlotChart.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,12 +88,11 @@
 		13899B3E1B36CF4B0060AD92 /* ZFPlotChart */ = {
 			isa = PBXGroup;
 			children = (
+				FB3B24AD1C9FEF8E0045859D /* Classes */,
 				13899B431B36CF4B0060AD92 /* AppDelegate.h */,
 				13899B441B36CF4B0060AD92 /* AppDelegate.m */,
 				13899B461B36CF4B0060AD92 /* ViewController.h */,
 				13899B471B36CF4B0060AD92 /* ViewController.m */,
-				13899B681B36CF820060AD92 /* ZBPlotChart.h */,
-				13899B691B36CF820060AD92 /* ZBPlotChart.m */,
 				13899B491B36CF4B0060AD92 /* Main.storyboard */,
 				13899B4C1B36CF4B0060AD92 /* Images.xcassets */,
 				13899B4E1B36CF4B0060AD92 /* LaunchScreen.xib */,
@@ -128,6 +127,16 @@
 				13899B5A1B36CF4C0060AD92 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FB3B24AD1C9FEF8E0045859D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FB3B24AE1C9FEF8E0045859D /* ZBPlotChart.h */,
+				FB3B24AF1C9FEF8E0045859D /* ZBPlotChart.m */,
+			);
+			name = Classes;
+			path = ../../Pod/Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13899B481B36CF4B0060AD92 /* ViewController.m in Sources */,
-				13899B6A1B36CF820060AD92 /* ZBPlotChart.m in Sources */,
+				FB3B24B01C9FEF8E0045859D /* ZBPlotChart.m in Sources */,
 				13899B451B36CF4B0060AD92 /* AppDelegate.m in Sources */,
 				13899B421B36CF4B0060AD92 /* main.m in Sources */,
 			);
