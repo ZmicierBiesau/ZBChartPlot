@@ -7,6 +7,8 @@
 
 #import "ZBPlotChart.h"
 
+static const float kNumberOfIntervals = 5.f;
+
 @implementation ZBPlotChart
 
 @synthesize dictDispPoint;
@@ -103,14 +105,19 @@
     
     
     // Enhance Upper & Lower Limit for Flexible Display, based on average of min and max
-    self.max = ceilf(self.max / 0.7 );
-    self.min = floor(self.min / 0.7);
+    self.max = ceilf(self.max / 0.75);
+    self.min = floor(self.min / 0.75);
     
     // Calculate left space given by the lenght of the string on the axis
     self.leftMargin = [self sizeOfString:[@(self.max) stringValue] withFont:self.verticalLabelFont].width + kLeftSpace;
     
     self.chartWidth-= self.leftMargin;
     float range = self.max-self.min;
+    
+    float intervalValues = self.max >= 0.001? range / kNumberOfIntervals : 10.f; //I can't garantee that float is 0.f, it can be 0.0000001f for ex.
+    intervalValues = ceilf(intervalValues);
+    range = intervalValues * kNumberOfIntervals;
+    self.max = self.min + range;
     
     // Calculate deploying points for chart according to values
     float xGapBetweenTwoPoints = self.chartWidth / ([orderSet count] - 1);
@@ -160,16 +167,20 @@
             // remove loading animation
             [self stopLoading];
             
+
+            
             float range = self.max - self.min;
-            float intervalHlines = (self.chartHeight) / 5.0f;
-            float intervalValues = range / 5.0f;
+            float intervalHlines = (self.chartHeight) / kNumberOfIntervals;
+            float intervalValues = self.max >= 0.001? range / kNumberOfIntervals : 10.f; //I can't garantee that float is 0.f, it can be 0.0000001f for ex.
+            intervalValues = ceilf(intervalValues);
+            self.max = intervalValues * kNumberOfIntervals;
             
             // horizontal lines
-            for(int i = 5; i > 0; i--)
+            for(int i = kNumberOfIntervals; i > 0; i--)
             {
                 [self setContextWidth:0.5f andColor:self.horizontalAxisColor];
                 
-                CGPoint start = CGPointMake(self.leftMargin, self.chartHeight+kTopMargin-i*intervalHlines);
+                CGPoint start = CGPointMake(self.leftMargin - 5.f, self.chartHeight+kTopMargin-i*intervalHlines);
                 CGPoint end = CGPointMake(self.chartWidth+self.leftMargin, self.chartHeight+kTopMargin-i*intervalHlines);
                 
                 // draw the line
@@ -177,10 +188,13 @@
                 [self endContext];
                 
                 // draw Ys on the axis
-                NSString *prezzoAsse = [@(self.min+i*intervalValues) stringValue];
-                CGPoint prezzoAssePoint = CGPointMake(self.leftMargin - [self sizeOfString:prezzoAsse withFont:self.verticalLabelFont].width - 5,(self.chartHeight+kTopMargin-i*intervalHlines - 6));
+                if(self.enableShowYLabels)
+                {
+                    NSString *prezzoAsse = [@(self.min+i*intervalValues) stringValue];
+                    CGPoint prezzoAssePoint = CGPointMake(self.leftMargin - [self sizeOfString:prezzoAsse withFont:self.verticalLabelFont].width - 10.f, (self.chartHeight+kTopMargin-i*intervalHlines - 6));
                 
-                [self drawString:prezzoAsse at:prezzoAssePoint withFont:self.verticalLabelFont andColor:self.verticalLabelColor];
+                    [self drawString:prezzoAsse at:prezzoAssePoint withFont:self.verticalLabelFont andColor:self.verticalLabelColor];
+                }
                 
                 [self endContext];
                 
@@ -211,9 +225,9 @@
                 
                 long linesRatio;
                 
-                if([self.dictDispPoint count] < 6)
+                if([self.dictDispPoint count] < 7)
                     linesRatio = [self.dictDispPoint count] / [self.dictDispPoint count];
-                else if([self.dictDispPoint count] < 12)
+                else if([self.dictDispPoint count] < 13)
                     linesRatio = [self.dictDispPoint count] / 2;
                 else linesRatio  = [self.dictDispPoint count]/4 ;
                 
@@ -270,7 +284,7 @@
             
             //  X and Y axys
             
-            [self setContextWidth:1.0f andColor:self.horizontalAxisColor];
+            [self setContextWidth:0.5f andColor:self.horizontalAxisColor];
             
             //  y
             [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.leftMargin, self.chartHeight+kTopMargin)];
@@ -278,12 +292,15 @@
             [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin+self.chartHeight) to:CGPointMake(self.leftMargin+self.chartWidth, self.chartHeight + kTopMargin)];
             
             // vertical closure
-            CGPoint startLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin);
-            CGPoint endLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin+self.chartHeight);
-            [self drawLineFrom:startLine to:endLine];
+                CGPoint startLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin);
+                CGPoint endLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin+self.chartHeight);
+                [self drawLineFrom:startLine to:endLine];
             
             // horizontal closure
-            [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.chartWidth+self.leftMargin, kTopMargin)];
+            if (!self.enableHorizontalAxis) {
+                [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.chartWidth+self.leftMargin, kTopMargin)];
+            }
+            
             
             
             [self endContext];
@@ -439,8 +456,8 @@
 -(void) drawString:(NSString*)string at:(CGPoint)point withFont:(UIFont*)font andColor:(UIColor*)color{
     
     NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName: color};
-//    if (string.length > 3)
-//        string = [string substringToIndex:3];
+    if (string.length > 3)
+        string = [string substringToIndex:3];
     [string.uppercaseString drawAtPoint:point withAttributes:attributes];
 }
 // draw a circle given center and radius

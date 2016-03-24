@@ -62,8 +62,8 @@
     self.plotChart.enableShowYLabels = YES;
     self.plotChart.verticalLabelColor = [UIColor redColor];
     self.plotChart.horizontalLabelColor = [UIColor blueColor];
-    self.plotChart.verticalLabelFont = [UIFont systemFontOfSize:12.f];
-    self.plotChart.horizontalLabelFont = [UIFont systemFontOfSize:10.f];
+    self.plotChart.verticalLabelFont = [UIFont systemFontOfSize:8.f];
+    self.plotChart.horizontalLabelFont = [UIFont systemFontOfSize:8.f];
     self.plotChart.horizontalAxisColor = [UIColor lightGrayColor];
     self.plotChart.verticalAxisColor = [UIColor greenColor];
     self.plotChart.graphColor = COLOR_WITH_RGB(255, 150, 10);

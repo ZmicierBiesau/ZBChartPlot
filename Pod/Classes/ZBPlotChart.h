@@ -14,7 +14,7 @@
 static const float kTopMargin = 20.f;   // top margin
 static const float kVMargin = 40.0f;   // vertical margin
 static const float kHMargin = 10.0f;   // horizontal margin
-static const float kLeftSpace = 10.0f;   // left space
+static const float kLeftSpace = 20.0f;   // left space
 
 // definitions (as JSON)
 static NSString *kPointName = @"Point";
