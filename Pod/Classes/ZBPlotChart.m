@@ -105,8 +105,8 @@ static const float kNumberOfIntervals = 5.f;
     
     
     // Enhance Upper & Lower Limit for Flexible Display, based on average of min and max
-    self.max = ceilf(self.max / 0.75);
-    self.min = floor(self.min / 0.75);
+    self.max = ceilf(self.max / 0.7);
+    self.min = floor(self.min / 0.7);
     
     // Calculate left space given by the lenght of the string on the axis
     self.leftMargin = [self sizeOfString:[@(self.max) stringValue] withFont:self.verticalLabelFont].width + kLeftSpace;
@@ -116,8 +116,9 @@ static const float kNumberOfIntervals = 5.f;
     
     float intervalValues = self.max >= 0.001? range / kNumberOfIntervals : 10.f; //I can't garantee that float is 0.f, it can be 0.0000001f for ex.
     intervalValues = ceilf(intervalValues);
-    range = intervalValues * kNumberOfIntervals;
-    self.max = self.min + range;
+    if(self.max >= 0.001)
+        range = intervalValues * kNumberOfIntervals;
+        self.max = self.min + range;
     
     // Calculate deploying points for chart according to values
     float xGapBetweenTwoPoints = self.chartWidth / ([orderSet count] - 1);
@@ -173,7 +174,9 @@ static const float kNumberOfIntervals = 5.f;
             float intervalHlines = (self.chartHeight) / kNumberOfIntervals;
             float intervalValues = self.max >= 0.001? range / kNumberOfIntervals : 10.f; //I can't garantee that float is 0.f, it can be 0.0000001f for ex.
             intervalValues = ceilf(intervalValues);
-            self.max = intervalValues * kNumberOfIntervals;
+            if(self.max >= 0.001)
+                range = intervalValues * kNumberOfIntervals;
+                self.max = self.min + range;
             
             // horizontal lines
             for(int i = kNumberOfIntervals; i > 0; i--)
