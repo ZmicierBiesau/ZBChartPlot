@@ -103,8 +103,8 @@
     
     
     // Enhance Upper & Lower Limit for Flexible Display, based on average of min and max
-    self.max = ceilf(self.max+10 );
-    self.min = floor(self.min-10);
+    self.max = ceilf(self.max / 0.7 );
+    self.min = floor(self.min / 0.7);
     
     // Calculate left space given by the lenght of the string on the axis
     self.leftMargin = [self sizeOfString:[@(self.max) stringValue] withFont:self.verticalLabelFont].width + kLeftSpace;
@@ -399,7 +399,7 @@
     /// Set text alignment
     paragraphStyle.alignment = NSTextAlignmentCenter;
     //[self drawString:string at:CGPointMake(100, 200) withFont:self.horizontalLabelFont andColor:[UIColor blackColor]];
-     NSDictionary *attributes = @{NSFontAttributeName: self.horizontalLabelFont,
+     NSDictionary *attributes = @{NSFontAttributeName: self.emptyLabelFont,
                                   NSForegroundColorAttributeName: [UIColor blackColor],
                                   NSParagraphStyleAttributeName: paragraphStyle};
     [string drawInRect:CGRectMake(self.leftMargin, self.bounds.size.height / 2 - textSize.height / 2, self.chartWidth, 4 * textSize.height) withAttributes:attributes];
@@ -439,8 +439,9 @@
 -(void) drawString:(NSString*)string at:(CGPoint)point withFont:(UIFont*)font andColor:(UIColor*)color{
     
     NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName: color};
-    
-    [string drawAtPoint:point withAttributes:attributes];
+//    if (string.length > 3)
+//        string = [string substringToIndex:3];
+    [string.uppercaseString drawAtPoint:point withAttributes:attributes];
 }
 // draw a circle given center and radius
 -(void) drawCircleAt:(CGPoint)point ofRadius:(int)radius {

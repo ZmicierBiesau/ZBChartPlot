@@ -59,6 +59,7 @@ static NSString *kPointName = @"Point";
 @property (nonatomic, strong) UIColor *graphColor;
 @property (nonatomic, strong) NSString *emptyGraphText;
 @property (nonatomic, assign) BOOL enablePopUpLabel;
+@property (nonatomic, strong) UIFont *emptyLabelFont;
 
 
 - (void)createChartWith:(NSOrderedSet *)data;

@@ -70,6 +70,7 @@
     self.plotChart.backgroundColor = [UIColor whiteColor];
     self.plotChart.emptyGraphText = @"This graph has nothing to show This graph has nothing to show This graph has nothing to show";
     self.plotChart.enablePopUpLabel = YES;
+    self.plotChart.emptyLabelFont = [UIFont systemFontOfSize:12.f];
     
     
     // draw data
