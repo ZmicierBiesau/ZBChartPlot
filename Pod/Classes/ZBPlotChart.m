@@ -53,7 +53,7 @@ static const float kMaxValueCoeff = 1.3f;
     
     _yParamterName = @"value";
     _xParamterName = @"time";
-    _xDateFormat = @"yyyyMMdd";
+    _xDateFormat = @"yyyy-MM-dd";
     
     _enableVerticalAxis = YES;
     _enableHorizontalAxis = YES;

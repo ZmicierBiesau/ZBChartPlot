@@ -54,7 +54,7 @@
     
     self.plotChart.yParamterName = @"value";
     self.plotChart.xParamterName = @"time";
-    self.plotChart.xDateFormat = @"yyyyMMdd";
+    self.plotChart.xDateFormat = @"yyyy-MM-dd";
     
     self.plotChart.enableVerticalAxis = NO;
     self.plotChart.enableHorizontalAxis = YES;
@@ -107,7 +107,7 @@
     
     self.secondChart.yParamterName = @"value";
     self.secondChart.xParamterName = @"time";
-    self.secondChart.xDateFormat = @"yyyyMMdd";
+    self.secondChart.xDateFormat = @"yyyy-MM-dd";
     
     self.secondChart.enableVerticalAxis = YES;
     self.secondChart.enableHorizontalAxis = YES;
