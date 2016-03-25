@@ -56,7 +56,7 @@
     self.plotChart.xParamterName = @"time";
     self.plotChart.xDateFormat = @"yyyyMMdd";
     
-    self.plotChart.enableVerticalAxis = YES;
+    self.plotChart.enableVerticalAxis = NO;
     self.plotChart.enableHorizontalAxis = YES;
     self.plotChart.enableShowXLabels = YES;
     self.plotChart.enableShowYLabels = YES;

@@ -211,7 +211,7 @@ static const float kMaxValueCoeff = 1.3f;
             [self.dictDispPoint enumerateObjectsUsingBlock:^(id obj, NSUInteger ind, BOOL *stop){
                 if(ind > 0)
                 {
-                    self.prevPoint = [[[self.dictDispPoint objectAtIndex:ind-1] valueForKey:kPointName] CGPointValue];
+                    self.prevPoint = [[[self.dictDispPoint objectAtIndex:ind - 1] valueForKey:kPointName] CGPointValue];
                     self.curPoint = [[[self.dictDispPoint objectAtIndex:ind] valueForKey:kPointName] CGPointValue];
                 }
                 else
@@ -222,7 +222,7 @@ static const float kMaxValueCoeff = 1.3f;
                 }
                 
                 // line style
-                [self setContextWidth:1.5f andColor:self.graphColor];
+                [self setContextWidth:.5f andColor:self.graphColor];
                 
                 // draw the curve
                 [self drawCurveFrom:self.prevPoint to:self.curPoint];
@@ -289,28 +289,29 @@ static const float kMaxValueCoeff = 1.3f;
             CGPathRelease(path);
             
             
-//            //  X and Y axys
-//            
-//            [self setContextWidth:0.5f andColor:self.horizontalAxisColor];
-//            
-//            //  y
-//            [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.leftMargin, self.chartHeight+kTopMargin)];
-//            //  x
-//            [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin+self.chartHeight) to:CGPointMake(self.leftMargin+self.chartWidth, self.chartHeight + kTopMargin)];
-//            
-//            // vertical closure
-//                CGPoint startLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin);
-//                CGPoint endLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin+self.chartHeight);
-//                [self drawLineFrom:startLine to:endLine];
-//            
-//            // horizontal closure
-//            if (!self.enableHorizontalAxis) {
-//                [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.chartWidth+self.leftMargin, kTopMargin)];
-//            }
-//            
-//            
-//            
-//            [self endContext];
+            //  X and Y axys
+            
+            [self setContextWidth:0.5f andColor:self.horizontalAxisColor];
+            
+            //  y
+            [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.leftMargin, self.chartHeight+kTopMargin)];
+            //  x
+            [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin+self.chartHeight) to:CGPointMake(self.leftMargin+self.chartWidth, self.chartHeight + kTopMargin)];
+            
+            // vertical closure
+            if (!self.enableVerticalAxis) {
+                CGPoint startLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin);
+                CGPoint endLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin+self.chartHeight);
+                [self drawLineFrom:startLine to:endLine];
+            }
+            // horizontal closure
+            if (!self.enableHorizontalAxis) {
+                [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.chartWidth+self.leftMargin, kTopMargin)];
+            }
+            
+            
+            
+            [self endContext];
             
             
             CGContextRef context = UIGraphicsGetCurrentContext();
