@@ -8,6 +8,7 @@
 #import "ZBPlotChart.h"
 
 static const float kNumberOfIntervals = 5.f;
+static const float kMaxValueCoeff = 1.3f;
 
 @implementation ZBPlotChart
 
@@ -101,12 +102,15 @@ static const float kNumberOfIntervals = 5.f;
     
     // Find Min & Max of Chart
     self.max = [[[orderSet valueForKey:self.yParamterName] valueForKeyPath:@"@max.floatValue"] floatValue];
-    self.min = [[[orderSet valueForKey:self.yParamterName] valueForKeyPath:@"@min.floatValue"] floatValue];
+    self.min = 0.f;
     
     
-    // Enhance Upper & Lower Limit for Flexible Display, based on average of min and max
-    self.max = ceilf(self.max / 0.7);
-    self.min = floor(self.min / 0.7);
+    // Enhance Upper Limit for Flexible Display, based on average of min and max
+    if(self.max < 5 && self.max >= 0.001)
+        self.max = 5.f;
+    else
+        self.max = ceilf(self.max * kMaxValueCoeff);
+    
     
     // Calculate left space given by the lenght of the string on the axis
     self.leftMargin = [self sizeOfString:[@(self.max) stringValue] withFont:self.verticalLabelFont].width + kLeftSpace;
@@ -285,28 +289,28 @@ static const float kNumberOfIntervals = 5.f;
             CGPathRelease(path);
             
             
-            //  X and Y axys
-            
-            [self setContextWidth:0.5f andColor:self.horizontalAxisColor];
-            
-            //  y
-            [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.leftMargin, self.chartHeight+kTopMargin)];
-            //  x
-            [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin+self.chartHeight) to:CGPointMake(self.leftMargin+self.chartWidth, self.chartHeight + kTopMargin)];
-            
-            // vertical closure
-                CGPoint startLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin);
-                CGPoint endLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin+self.chartHeight);
-                [self drawLineFrom:startLine to:endLine];
-            
-            // horizontal closure
-            if (!self.enableHorizontalAxis) {
-                [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.chartWidth+self.leftMargin, kTopMargin)];
-            }
-            
-            
-            
-            [self endContext];
+//            //  X and Y axys
+//            
+//            [self setContextWidth:0.5f andColor:self.horizontalAxisColor];
+//            
+//            //  y
+//            [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.leftMargin, self.chartHeight+kTopMargin)];
+//            //  x
+//            [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin+self.chartHeight) to:CGPointMake(self.leftMargin+self.chartWidth, self.chartHeight + kTopMargin)];
+//            
+//            // vertical closure
+//                CGPoint startLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin);
+//                CGPoint endLine = CGPointMake(self.leftMargin+self.chartWidth, kTopMargin+self.chartHeight);
+//                [self drawLineFrom:startLine to:endLine];
+//            
+//            // horizontal closure
+//            if (!self.enableHorizontalAxis) {
+//                [self drawLineFrom:CGPointMake(self.leftMargin, kTopMargin) to:CGPointMake(self.chartWidth+self.leftMargin, kTopMargin)];
+//            }
+//            
+//            
+//            
+//            [self endContext];
             
             
             CGContextRef context = UIGraphicsGetCurrentContext();
