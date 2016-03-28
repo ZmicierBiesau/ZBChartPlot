@@ -63,6 +63,7 @@ static const float kMaxValueCoeff = 1.3f;
     _horizontalLabelColor = [UIColor blackColor];
     _verticalLabelFont = [UIFont systemFontOfSize:10.f];
     _horizontalLabelFont = [UIFont systemFontOfSize:10.f];
+    _emptyLabelFont = [UIFont systemFontOfSize:10.f];
     _horizontalAxisColor = [UIColor lightGrayColor];
     _verticalAxisColor = [UIColor lightGrayColor];
     _graphColor = COLOR_WITH_RGB(0, 150, 10);
@@ -121,13 +122,14 @@ static const float kMaxValueCoeff = 1.3f;
     float intervalValues = self.max >= 0.001? range / kNumberOfIntervals : 10.f; //I can't garantee that float is 0.f, it can be 0.0000001f for ex.
     intervalValues = ceilf(intervalValues);
     if(self.max >= 0.001)
+    {
         range = intervalValues * kNumberOfIntervals;
         self.max = self.min + range;
+    }
     
     // Calculate deploying points for chart according to values
     float xGapBetweenTwoPoints = self.chartWidth / ([orderSet count] - 1);
     float x , y;
-    
 
     x = self.leftMargin;
     y = kTopMargin;
@@ -141,7 +143,7 @@ static const float kMaxValueCoeff = 1.3f;
         
         float diff = (self.max-yValue);
         
-        y = ((self.chartHeight)*diff)/range + kTopMargin;
+        y = ((self.chartHeight) * diff) / range + kTopMargin;
         
         // calculate maximum y
         if(y > self.yMax) self.yMax = y;
@@ -425,9 +427,9 @@ static const float kMaxValueCoeff = 1.3f;
     paragraphStyle.alignment = NSTextAlignmentCenter;
     //[self drawString:string at:CGPointMake(100, 200) withFont:self.horizontalLabelFont andColor:[UIColor blackColor]];
      NSDictionary *attributes = @{NSFontAttributeName: self.emptyLabelFont,
-                                  NSForegroundColorAttributeName: [UIColor blackColor],
-                                  NSParagraphStyleAttributeName: paragraphStyle};
-    [string drawInRect:CGRectMake(self.leftMargin, self.bounds.size.height / 2 - textSize.height / 2, self.chartWidth, 4 * textSize.height) withAttributes:attributes];
+                       NSForegroundColorAttributeName: [UIColor blackColor],
+                        NSParagraphStyleAttributeName: paragraphStyle};
+    [string drawInRect:CGRectMake(self.leftMargin + 5.f, self.bounds.size.height / 2 - textSize.height / 2, self.chartWidth - 10.f, 4 * textSize.height) withAttributes:attributes];
     
     [self endContext];
 }
@@ -448,6 +450,7 @@ static const float kMaxValueCoeff = 1.3f;
 }
 // line between two points
 -(void) drawLineFrom:(CGPoint) start to: (CGPoint)end {
+    if(start.x == NAN || start.y == NAN || end.x == NAN || end.y == NAN) return;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextMoveToPoint(context, start.x, start.y);
     CGContextAddLineToPoint(context,end.x,end.y);
@@ -455,6 +458,7 @@ static const float kMaxValueCoeff = 1.3f;
 }
 // curve between two points
 -(void) drawCurveFrom:(CGPoint)start to:(CGPoint)end {
+    if(start.x == NAN || start.y == NAN || end.x == NAN || end.y == NAN) return;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextMoveToPoint(context, start.x, start.y);
     CGContextAddQuadCurveToPoint(context, start.x, start.y, end.x, end.y);
@@ -462,7 +466,7 @@ static const float kMaxValueCoeff = 1.3f;
 }
 // draws a string given a point, font and color
 -(void) drawString:(NSString*)string at:(CGPoint)point withFont:(UIFont*)font andColor:(UIColor*)color{
-    
+    if(point.x == NAN || point.y == NAN) return;
     NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName: color};
     if (string.length > 3)
         string = [string substringToIndex:3];
@@ -470,6 +474,7 @@ static const float kMaxValueCoeff = 1.3f;
 }
 // draw a circle given center and radius
 -(void) drawCircleAt:(CGPoint)point ofRadius:(int)radius {
+    if(point.x == NAN || point.y == NAN) return;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGRect myOval = {point.x-radius/2, point.y-radius/2, radius, radius};
     CGContextAddEllipseInRect(context, myOval);

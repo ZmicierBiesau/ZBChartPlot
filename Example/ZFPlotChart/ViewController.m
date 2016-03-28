@@ -121,8 +121,9 @@
     self.secondChart.verticalAxisColor = [UIColor blueColor];
     self.secondChart.graphColor = COLOR_WITH_RGB(255, 150, 10);
     self.secondChart.backgroundColor = [UIColor whiteColor];
-    self.secondChart.emptyGraphText = @"This graph has nothing to show This graph has nothing to show This graph has nothing to show";
+    self.secondChart.emptyGraphText = @"No good info for showing";
     self.secondChart.enablePopUpLabel = YES;
+    self.secondChart.emptyLabelFont = [UIFont boldSystemFontOfSize:12.f];
     
     
     // draw data
