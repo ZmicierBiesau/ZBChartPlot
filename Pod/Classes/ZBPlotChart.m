@@ -279,11 +279,17 @@ static const float kMaxValueCoeff = 1.3f;
                 CGPoint p;
                 for (int i = 0; i < self.dictDispPoint.count; i++) {
                     p = [[[self.dictDispPoint objectAtIndex:i] valueForKey:kPointName] CGPointValue];
-                    CGPathAddLineToPoint(path, nil, p.x, p.y);
+                    if(!isnan(p.x) && !isnan(p.y))
+                    {
+                        CGPathAddLineToPoint(path, nil, p.x, p.y);
+                    }
                 }
             }
             CGPathAddLineToPoint(path, nil, self.curPoint.x, kTopMargin+self.chartHeight);
-            CGPathAddLineToPoint(path, nil, origin.x,origin.y);
+            if(!isnan(origin.x) && !isnan(origin.y))
+            {
+                CGPathAddLineToPoint(path, nil, origin.x,origin.y);
+            }
             
             // fill
             [self fillUnderGraphForPath:path];
@@ -453,7 +459,7 @@ static const float kMaxValueCoeff = 1.3f;
 }
 // line between two points
 -(void) drawLineFrom:(CGPoint) start to: (CGPoint)end {
-    if(start.x == NAN || start.y == NAN || end.x == NAN || end.y == NAN) return;
+    if(isnan(start.x) || isnan(start.y) || isnan(end.x) || isnan(end.y)) return;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextMoveToPoint(context, start.x, start.y);
     CGContextAddLineToPoint(context,end.x,end.y);
@@ -461,7 +467,7 @@ static const float kMaxValueCoeff = 1.3f;
 }
 // curve between two points
 -(void) drawCurveFrom:(CGPoint)start to:(CGPoint)end {
-    if(start.x == NAN || start.y == NAN || end.x == NAN || end.y == NAN) return;
+    if(isnan(start.x)|| isnan(start.y)|| isnan(end.x) || isnan(end.y)) return;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextMoveToPoint(context, start.x, start.y);
     CGContextAddQuadCurveToPoint(context, start.x, start.y, end.x, end.y);
@@ -469,7 +475,7 @@ static const float kMaxValueCoeff = 1.3f;
 }
 // draws a string given a point, font and color
 -(void) drawString:(NSString*)string at:(CGPoint)point withFont:(UIFont*)font andColor:(UIColor*)color{
-    if(point.x == NAN || point.y == NAN) return;
+    if(isnan(point.x)|| isnan(point.y)) return;
     NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName: color};
     if (string.length > 3)
         string = [string substringToIndex:3];
@@ -477,7 +483,7 @@ static const float kMaxValueCoeff = 1.3f;
 }
 // draw a circle given center and radius
 -(void) drawCircleAt:(CGPoint)point ofRadius:(int)radius {
-    if(point.x == NAN || point.y == NAN) return;
+    if(isnan(point.x) || isnan(point.y)) return;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGRect myOval = {point.x-radius/2, point.y-radius/2, radius, radius};
     CGContextAddEllipseInRect(context, myOval);
@@ -486,6 +492,7 @@ static const float kMaxValueCoeff = 1.3f;
 // rounded corners rectangle
 - (void) drawRoundedRect:(CGContextRef)c rect:(CGRect)rect radius:(int)corner_radius color:(UIColor *)color
 {
+    if(isnan(rect.origin.x)|| isnan(rect.origin.y)) return;
     int x_left = rect.origin.x;
     int x_left_center = rect.origin.x + corner_radius;
     int x_right_center = rect.origin.x + rect.size.width - corner_radius;

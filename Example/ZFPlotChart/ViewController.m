@@ -24,7 +24,7 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     
-    CGRect frame = CGRectMake(0, 100, screenWidth, 190);
+    CGRect frame = CGRectMake(0, 50, screenWidth, 190);
     
     // initialization
     self.plotChart = [[ZBPlotChart alloc] initWithFrame:frame];
@@ -129,10 +129,6 @@
     // draw data
     [self.secondChart createChartWith:result];
     
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
