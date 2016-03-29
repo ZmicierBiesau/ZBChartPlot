@@ -417,7 +417,7 @@ static const float kMaxValueCoeff = 1.3f;
 
 -(void)drawMessage:(NSString*)string {
     
-    CGSize textSize = [self sizeOfString:string withFont:self.horizontalLabelFont];
+    CGSize textSize = [self sizeOfString:string withFont:self.emptyLabelFont];
 
     /// Make a copy of the default paragraph style
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
@@ -429,7 +429,10 @@ static const float kMaxValueCoeff = 1.3f;
      NSDictionary *attributes = @{NSFontAttributeName: self.emptyLabelFont,
                        NSForegroundColorAttributeName: [UIColor blackColor],
                         NSParagraphStyleAttributeName: paragraphStyle};
-    [string drawInRect:CGRectMake(self.leftMargin + 5.f, self.bounds.size.height / 2 - textSize.height / 2, self.chartWidth - 10.f, 4 * textSize.height) withAttributes:attributes];
+    CGFloat leftInset = 25.f;
+    CGFloat koeffOfStringSize = textSize.width / (self.chartWidth - 2 * leftInset);
+    koeffOfStringSize = ceilf(koeffOfStringSize);
+    [string drawInRect:CGRectMake(self.leftMargin + leftInset, self.bounds.size.height / 2 - koeffOfStringSize * textSize.height / 2, self.chartWidth - 2 * leftInset, koeffOfStringSize * textSize.height) withAttributes:attributes];
     
     [self endContext];
 }
