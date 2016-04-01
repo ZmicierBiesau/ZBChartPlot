@@ -93,6 +93,11 @@ static const float kMaxValueCoeff = 1.3f;
     
     [self.dictDispPoint removeAllObjects];
     
+    if(data.count == 1)
+    {
+        data = [self transform1ElemntSet:data];
+    }
+    
     NSMutableOrderedSet *orderSet = [[NSMutableOrderedSet alloc] initWithCapacity:0];
     
     // Add data to the orderSet
@@ -161,6 +166,28 @@ static const float kMaxValueCoeff = 1.3f;
     
     [self setNeedsDisplay];
     
+}
+
+- (NSOrderedSet*) transform1ElemntSet: (NSOrderedSet*) set
+{
+    NSMutableOrderedSet *mutableItems = (NSMutableOrderedSet *)set.mutableCopy;
+    NSMutableDictionary *dict = ((NSDictionary*)set[0]).mutableCopy;
+    dict[self.yParamterName] = @"0";
+    NSString *stringDate = dict[self.xParamterName];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:self.xDateFormat];
+    NSDate *dateFromString = [dateFormatter dateFromString:stringDate];
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setMonth:-1];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:dateFromString options:0];
+    
+    NSString *printDate = [dateFormatter stringFromDate:newDate];
+    dict[self.xParamterName] = printDate;
+    [mutableItems insertObject:dict atIndex:0];
+    return (NSOrderedSet *)mutableItems.copy;
 }
 
 #pragma mark - Drawing
