@@ -66,7 +66,8 @@ static const float kMaxValueCoeff = 1.3f;
     _emptyLabelFont = [UIFont systemFontOfSize:10.f];
     _horizontalAxisColor = [UIColor lightGrayColor];
     _verticalAxisColor = [UIColor lightGrayColor];
-    _graphColor = COLOR_WITH_RGB(0, 150, 10);
+    _topGraphColor = COLOR_WITH_RGB(0, 150, 10);
+    _bottomGraphColor = COLOR_WITH_RGB(0, 10, 150);
     self.backgroundColor = [UIColor whiteColor];
     _emptyGraphText = @"This graph has nothing";
     _enablePopUpLabel = YES;
@@ -251,10 +252,10 @@ static const float kMaxValueCoeff = 1.3f;
                 }
                 
                 // line style
-                [self setContextWidth:.5f andColor:self.graphColor];
+                [self setContextWidth:.5f andColor:self.topGraphColor];
                 
                 // draw the curve
-                [self drawCurveFrom:self.prevPoint to:self.curPoint];
+                //[self drawCurveFrom:self.prevPoint to:self.curPoint];
 
                 [self endContext];
                 
@@ -366,14 +367,14 @@ static const float kMaxValueCoeff = 1.3f;
                     CGPoint point = CGPointMake([[dict valueForKey:kPointName] CGPointValue].x,[[dict valueForKey:kPointName] CGPointValue].y);
                     
                     
-                    [self setContextWidth:1.0f andColor:self.graphColor];
+                    [self setContextWidth:1.0f andColor:self.topGraphColor];
                     
                     // Line at current Point
                     [self drawLineFrom:CGPointMake(point.x, kTopMargin-10) to:CGPointMake(point.x, self.chartHeight+kTopMargin)];
                     [self endContext];
                     
                     // Circle at point
-                    [self setContextWidth:1.0f andColor:self.graphColor];
+                    [self setContextWidth:1.0f andColor:self.topGraphColor];
                     [self drawCircleAt:point ofRadius:8];
                     
                     [self endContext];
@@ -396,7 +397,7 @@ static const float kMaxValueCoeff = 1.3f;
                         yStringRect.origin.x = self.leftMargin-(self.leftMargin/2);
                     
                     // rectangle for the label
-                    [self drawRoundedRect:context rect:yStringRect radius:5 color:self.graphColor];
+                    [self drawRoundedRect:context rect:yStringRect radius:5 color:self.topGraphColor];
                     // value string
                     [self drawString:yString at:CGPointMake(yStringRect.origin.x + (yStringRect.size.width - yStringSize.width)/2, yStringRect.origin.y + 1.0f) withFont:self.horizontalLabelFont andColor:self.backgroundColor];
                 }
@@ -427,24 +428,28 @@ static const float kMaxValueCoeff = 1.3f;
 }
 
 -(void)fillUnderGraphForPath:(CGMutablePathRef) path{
-    
+ 
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGFloat red = 0.0f, green = 0.0f, blue = 0.0f, alpha = 0.0f;
-    [self.graphColor getRed:&red green:&green blue:&blue alpha:&alpha];
+    NSArray* simpleLinearGradientColors = [NSArray arrayWithObjects:
+                                           (id)self.topGraphColor.CGColor,
+                                           (id)self.bottomGraphColor.CGColor, nil];
+    CGFloat simpleLinearGradientLocations[] = {0.7f, 1.f};
+    CGGradientRef simpleLinearGradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)simpleLinearGradientColors, simpleLinearGradientLocations);
     
-    CGContextSetRGBFillColor(context, red, green, blue, alpha);
-
-    CGContextSaveGState(context);
-    CGContextAddPath(context, path);
-    CGContextClip(context);
-
-    CGContextDrawPath(context, kCGPathFillStroke);
     
+    // Bezier Drawing
     UIBezierPath *bezier = [UIBezierPath bezierPathWithCGPath:path];
-    [bezier fill];
+    [bezier closePath];
+    CGContextSaveGState(context);
+    [bezier addClip];
+    CGContextDrawLinearGradient(context, simpleLinearGradient, CGPointMake(self.chartWidth / 2, self.yMin), CGPointMake(self.chartWidth / 2, self.yMax), 0);
     CGContextRestoreGState(context);
-
+    
+    
+    CGGradientRelease(simpleLinearGradient);
+    CGColorSpaceRelease(colorSpace);
    
 }
 
