@@ -60,6 +60,8 @@
     self.plotChart.enableHorizontalAxis = YES;
     self.plotChart.enableShowXLabels = YES;
     self.plotChart.enableShowYLabels = YES;
+    self.plotChart.enableShowXAxis = NO;
+    self.plotChart.enableShowYAxis = NO;
     self.plotChart.verticalLabelColor = [UIColor redColor];
     self.plotChart.horizontalLabelColor = [UIColor blueColor];
     self.plotChart.verticalLabelFont = [UIFont systemFontOfSize:8.f];
@@ -72,6 +74,8 @@
     self.plotChart.emptyGraphText = @"This graph has nothing to show This graph has nothing to show This graph has nothing to show";
     self.plotChart.enablePopUpLabel = YES;
     self.plotChart.emptyLabelFont = [UIFont systemFontOfSize:12.f];
+    self.plotChart.enableBackgroundHighlighting = YES;
+    self.plotChart.backHightlightingColor = [UIColor purpleColor];
     
     
     // draw data
@@ -126,6 +130,7 @@
     self.secondChart.emptyGraphText = @"No good info for showing";
     self.secondChart.enablePopUpLabel = YES;
     self.secondChart.emptyLabelFont = [UIFont boldSystemFontOfSize:12.f];
+    self.secondChart.enableBackgroundHighlighting = NO;
     
     
     // draw data

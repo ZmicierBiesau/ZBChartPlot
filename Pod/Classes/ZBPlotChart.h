@@ -48,6 +48,8 @@ static NSString *kPointName = @"Point";
 
 @property (nonatomic, assign) BOOL enableVerticalAxis;
 @property (nonatomic, assign) BOOL enableHorizontalAxis;
+@property (nonatomic, assign) BOOL enableShowXAxis;
+@property (nonatomic, assign) BOOL enableShowYAxis;
 @property (nonatomic, assign) BOOL enableShowXLabels;
 @property (nonatomic, assign) BOOL enableShowYLabels;
 @property (nonatomic, strong) UIColor *verticalLabelColor;
@@ -61,6 +63,8 @@ static NSString *kPointName = @"Point";
 @property (nonatomic, strong) NSString *emptyGraphText;
 @property (nonatomic, assign) BOOL enablePopUpLabel;
 @property (nonatomic, strong) UIFont *emptyLabelFont;
+@property (nonatomic, assign) BOOL enableBackgroundHighlighting;
+@property (nonatomic, strong) UIColor *backHightlightingColor;
 
 
 - (void)createChartWith:(NSOrderedSet *)data;
