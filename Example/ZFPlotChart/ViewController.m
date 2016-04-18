@@ -71,7 +71,7 @@
     self.plotChart.topGraphColor = COLOR_WITH_RGB(255, 150, 10);
     self.plotChart.bottomGraphColor = COLOR_WITH_RGB(150, 255, 10);
     self.plotChart.backgroundColor = [UIColor whiteColor];
-    self.plotChart.emptyGraphText = @"This graph has nothing to show This graph has nothing to show This graph has nothing to show";
+    self.plotChart.emptyGraphText = @"This graph has nothing to show This graph has nothing to show This graph has nothing to showThis graph has nothing to show This graph has nothing to show This graph has nothing to showThis graph has nothing to show This graph has nothing to show This graph has nothing to showThis graph has nothing to show This graph has nothing to show This graph has nothing to show";
     self.plotChart.enablePopUpLabel = YES;
     self.plotChart.emptyLabelFont = [UIFont systemFontOfSize:12.f];
     self.plotChart.enableBackgroundHighlighting = YES;

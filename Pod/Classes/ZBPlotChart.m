@@ -488,7 +488,7 @@ static const float kMaxValueCoeff = 1.3f;
 
 -(void)drawMessage:(NSString*)string {
     
-    CGSize textSize = [self sizeOfString:string withFont:self.emptyLabelFont];
+   
 
     /// Make a copy of the default paragraph style
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
@@ -496,14 +496,29 @@ static const float kMaxValueCoeff = 1.3f;
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
     /// Set text alignment
     paragraphStyle.alignment = NSTextAlignmentCenter;
-    //[self drawString:string at:CGPointMake(100, 200) withFont:self.horizontalLabelFont andColor:[UIColor blackColor]];
+    
+    CGFloat leftInset = 25.f;
+    CGFloat topBottomInset = 10.f;
+    
+    CGSize textSize = [self sizeOfString:string withFont:self.emptyLabelFont];
+    CGFloat numberOfStrings = textSize.width / (self.chartWidth - 2 * leftInset);
+    numberOfStrings = ceilf(numberOfStrings);
+    
+    if (textSize.height * numberOfStrings > self.chartHeight - 2 * topBottomInset)
+    {
+        textSize = [self sizeOfString:string withFont:self.emptyLabelFont];
+        numberOfStrings = textSize.width / (self.chartWidth - 2 * leftInset);
+        numberOfStrings = ceilf(numberOfStrings);
+        self.emptyLabelFont = [self.emptyLabelFont fontWithSize:self.emptyLabelFont.pointSize - 1];
+    }
+    
      NSDictionary *attributes = @{NSFontAttributeName: self.emptyLabelFont,
                        NSForegroundColorAttributeName: [UIColor blackColor],
                         NSParagraphStyleAttributeName: paragraphStyle};
-    CGFloat leftInset = 25.f;
-    CGFloat koeffOfStringSize = textSize.width / (self.chartWidth - 2 * leftInset);
-    koeffOfStringSize = ceilf(koeffOfStringSize);
-    [string drawInRect:CGRectMake(self.leftMargin + leftInset, self.bounds.size.height / 2 - koeffOfStringSize * textSize.height / 2, self.chartWidth - 2 * leftInset, koeffOfStringSize * textSize.height) withAttributes:attributes];
+   
+    
+    
+    [string drawInRect:CGRectMake(self.leftMargin + leftInset, self.bounds.size.height / 2 - numberOfStrings * textSize.height / 2 + topBottomInset, self.chartWidth - 2 * leftInset, numberOfStrings * textSize.height - 2 * topBottomInset) withAttributes:attributes];
     
     [self endContext];
 }
