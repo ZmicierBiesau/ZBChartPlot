@@ -506,10 +506,10 @@ static const float kMaxValueCoeff = 1.3f;
     
     if (textSize.height * numberOfStrings > self.chartHeight - 2 * topBottomInset)
     {
+        self.emptyLabelFont = [self.emptyLabelFont fontWithSize:self.emptyLabelFont.pointSize - 1];
         textSize = [self sizeOfString:string withFont:self.emptyLabelFont];
         numberOfStrings = textSize.width / (self.chartWidth - 2 * leftInset);
         numberOfStrings = ceilf(numberOfStrings);
-        self.emptyLabelFont = [self.emptyLabelFont fontWithSize:self.emptyLabelFont.pointSize - 1];
     }
     
      NSDictionary *attributes = @{NSFontAttributeName: self.emptyLabelFont,
@@ -518,7 +518,7 @@ static const float kMaxValueCoeff = 1.3f;
    
     
     
-    [string drawInRect:CGRectMake(self.leftMargin + leftInset, self.bounds.size.height / 2 - numberOfStrings * textSize.height / 2 + topBottomInset, self.chartWidth - 2 * leftInset, numberOfStrings * textSize.height - 2 * topBottomInset) withAttributes:attributes];
+    [string drawInRect:CGRectMake(self.leftMargin + leftInset, self.bounds.size.height / 2 - numberOfStrings * textSize.height / 2, self.chartWidth - 2 * leftInset, numberOfStrings * textSize.height) withAttributes:attributes];
     
     [self endContext];
 }
