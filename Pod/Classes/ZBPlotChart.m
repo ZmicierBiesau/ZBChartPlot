@@ -498,13 +498,13 @@ static const float kMaxValueCoeff = 1.3f;
     paragraphStyle.alignment = NSTextAlignmentCenter;
     
     CGFloat leftInset = 25.f;
-    CGFloat topBottomInset = 10.f;
+    CGFloat topBottomInset = 5.f;
     
     CGSize textSize = [self sizeOfString:string withFont:self.emptyLabelFont];
     CGFloat numberOfStrings = textSize.width / (self.chartWidth - 2 * leftInset);
     numberOfStrings = ceilf(numberOfStrings);
     
-    if (textSize.height * numberOfStrings > self.chartHeight - 2 * topBottomInset)
+    while ((textSize.height * numberOfStrings > self.chartHeight - 2 * topBottomInset) && textSize.height > 0 && numberOfStrings > 0)
     {
         self.emptyLabelFont = [self.emptyLabelFont fontWithSize:self.emptyLabelFont.pointSize - 1];
         textSize = [self sizeOfString:string withFont:self.emptyLabelFont];

@@ -24,7 +24,7 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     
-    CGRect frame = CGRectMake(0, 50, screenWidth, 190);
+    CGRect frame = CGRectMake(0, 50, screenWidth, 150);
     
     // initialization
     self.plotChart = [[ZBPlotChart alloc] initWithFrame:frame];
@@ -75,7 +75,7 @@
     self.plotChart.enablePopUpLabel = YES;
     self.plotChart.emptyLabelFont = [UIFont systemFontOfSize:12.f];
     self.plotChart.enableBackgroundHighlighting = YES;
-    self.plotChart.backHightlightingColor = [UIColor purpleColor];
+    self.plotChart.backHightlightingColor = [UIColor colorWithWhite:0.5f alpha:.5f];
     
     
     // draw data
